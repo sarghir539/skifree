@@ -1,9 +1,5 @@
-import "babel-polyfill";
-
 import * as Constants from "../../Constants";
 
-import { AssetManager } from "../../Core/AssetManager";
-import { ObstacleManager } from "../../Entities/Obstacles/ObstacleManager";
 import { Skier } from "../../Entities/Skier";
 
 describe('Skier tests', () => {

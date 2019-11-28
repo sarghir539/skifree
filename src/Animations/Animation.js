@@ -7,18 +7,15 @@ export class Animation {
         this.animationRunning = false;
     }
 
-    getFrameCounter() { 
-        return this.frameCounter;
-    }
-
     isRunning() {
         return this.animationRunning;
     }
 
-    frame() {
-        this.frameCounter++;
-        if (this.frameCounter >= this.maxFrames) {
+    nextFrame() {
+        if (this.frameCounter >= this.maxFrames - 1) {
             this.stop();
+        } else {
+            this.frameCounter++;
         }
     }
 
@@ -28,8 +25,9 @@ export class Animation {
     }
 
     stop() {
-        this.frameCounter = 0;
-        if (!this.loop) {
+        if (this.loop) {
+            this.frameCounter = 0;
+        } else {
             this.animationRunning = false;
         }
     }

@@ -50,7 +50,7 @@ export class Skier extends Entity {
 
         // ARG: update skier asset for the jumping sequence        
         if (this.isJumping) {
-            this.jumpAnimation.frame();
+            this.jumpAnimation.nextFrame();
             if (this.jumpAnimation.isRunning()) {
                 this.updateJumpingAsset();
             } else {

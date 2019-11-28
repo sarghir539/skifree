@@ -24,6 +24,10 @@ export class Entity {
 
     getAssetBounds(assetManager) {
         const asset = assetManager.getAsset(this.assetName);
+        if (!asset) {
+            console.log(`INVALID ASSET: ${this.assetName}`);
+            return;
+        }
         return new Rect(
             this.x - asset.width / 2,
             this.y - asset.height / 2,

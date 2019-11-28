@@ -9,7 +9,7 @@ export const RHINO_RUN_ASSET = [
 
 export class RhinoRun extends Animation {
     constructor() {
-        super(20, 10);
+        super(20, 10, true);
     }
 
     getAsset() {

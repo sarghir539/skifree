@@ -22,7 +22,7 @@ export class Rhino extends Entity {
 
     chase(target) {
         if (this.skierCaught) {
-            this.eatAnimation.frame();
+            this.eatAnimation.nextFrame();
             this.assetName = this.eatAnimation.getAsset();
         } else {
             let xDistance = target.x - this.x;
@@ -36,7 +36,7 @@ export class Rhino extends Entity {
             this.x += xDistance * this.speed;
             this.y += yDistance * this.speed;
 
-            this.runAnimation.frame();
+            this.runAnimation.nextFrame();
             this.assetName = this.runAnimation.getAsset();
         }
         

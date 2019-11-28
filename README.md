@@ -115,8 +115,9 @@ CHANGELOG
 
 ** 11/28/2019 **
 * Added pause functionality toggled by pressing the P key
-* Added game Overlay to display game info
+* Added game Overlay to display basic game info
 * Added score to the game (based on distance)
 * Added lives counter to the game (initially 10)
 * Added zoom functionality for drawing assets
 * Rhino is now twice as big (and twice as scary!)
+* Added Animation unit tests
