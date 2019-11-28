@@ -49,7 +49,7 @@ unclear, don't hesitate to reach out.
 * **Build something new:**
 
   Now it's time to add something completely new. In the original Ski Free game, if you skied for too long, 
-  a yeti would chase you down and eat you. In Ceros Ski, we've provided assets for a Rhino to run after the skier, 
+  a yeti would chase you down and eat you. In Ceros Ski, we've provided assets for a Rhino to run after the skier,
   catch him and eat him.
   * The Rhino should appear after a set amount of time or distance skied and chase the skier, using the running assets
     we've provided to animate the rhino.
