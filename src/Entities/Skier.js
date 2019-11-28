@@ -139,9 +139,11 @@ export class Skier extends Entity {
                 // if skier is not jumping or obstacle is not jumpable - crash
                 if (!this.isJumping || !this.collisionEntity.jumpable) {
                     this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);
+                    return true;
                 }
             }
         }
+        return false;
     };
 
     // detect skier/obstacle collision

@@ -95,7 +95,9 @@ We are looking forward to see what you come up with!
 
 *************************************************
 
-CHANGELOG(11/27)
+CHANGELOG
+
+** 11/27/2019 **
 * Bug fix: Fixed an issue in Skier.turnLeft() method where direction became invalid (-1) after a skier crashed and was moved to the left
 * Bug fix: Fixed an issue in Skier.turnRight() to properly handle direction change after skier crashed and was moved to the right
 * Added unit tests for Skier
@@ -104,8 +106,17 @@ CHANGELOG(11/27)
 * Added a new Ramp obstacle
 * Added the ability for Skier to jump over some obstacles
 * Added the ability for Skier to auto-jump when reaching a ramp
+* Added a new entity Rhino to start chasing the skier after 10 seconds
 * Added RhinoEat as a Rhino animation
 * Added RhinoRun as a Rhino animation
-* Added a new entity Rhino to start chasing the skier after 10 seconds
 * Added unit tests for Rhino
 * Bug fix: added a counter to ObstacleManager.calculateOpenPosition() to avoid infinite loops
+
+
+** 11/28/2019 **
+* Added pause functionality toggled by pressing the P key
+* Added game Overlay to display game info
+* Added score to the game (based on distance)
+* Added lives counter to the game (initially 10)
+* Added zoom functionality for drawing assets
+* Rhino is now twice as big (and twice as scary!)

@@ -27,8 +27,10 @@ export const RHINO_RUN_1 = 'rhinoRun1';
 export const RHINO_RUN_2 = 'rhinoRun2';
 
 export const SKIER_STARTING_SPEED = 5;
+export const SKIER_STARTING_LIVES = 10;
 export const SKIER_DIAGONAL_SPEED_REDUCER = 1.4142;
-export const RHINO_STARTING_SPEED = 5;
+export const RHINO_CHASE_DELAY_TIME_MS = 10000;
+export const RHINO_STARTING_SPEED = 4;
 
 export const ASSETS = {
     [SKIER_CRASH]: 'img/skier_crash.png',
@@ -80,5 +82,13 @@ export const KEYS = {
     RIGHT : 39,
     UP : 38,
     DOWN : 40,
-    SPACE: 32 
+    SPACE: 32,
+    P: 80,
 };
+
+export const GAME_STATE = {
+    NOT_STARTED: 0,
+    RUNNING: 1,
+    PAUSED: 2,
+    OVER: 3
+}

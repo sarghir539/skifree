@@ -1,10 +1,9 @@
 import * as Constants from "../Constants";
 
-import { intersectTwoRects } from "../Core/Utils";
-
 import { Entity } from "./Entity";
-import { RhinoRun } from "../Animations/RhinoRun";
 import { RhinoEat } from "../Animations/RhinoEat";
+import { RhinoRun } from "../Animations/RhinoRun";
+import { intersectTwoRects } from "../Core/Utils";
 
 export class Rhino extends Entity {
     assetName = Constants.RHINO;
@@ -26,9 +25,9 @@ export class Rhino extends Entity {
             this.eatAnimation.frame();
             this.assetName = this.eatAnimation.getAsset();
         } else {
-            var xDistance = target.x - this.x;
-            var yDistance = target.y - this.y;
-            var distance = Math.hypot(xDistance, yDistance);
+            let xDistance = target.x - this.x;
+            let yDistance = target.y - this.y;
+            const distance = Math.hypot(xDistance, yDistance);
             if (distance) {
                 xDistance /= distance;
                 yDistance /= distance;

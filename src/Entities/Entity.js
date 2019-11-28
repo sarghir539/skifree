@@ -32,20 +32,21 @@ export class Entity {
         );
     }
 
-    // ARG - entity identifier based on the asset name and current position
+    // entity identifier based on asset name and current position
     // although this does not guarantee uniqueness, it should reasonably identify entities
     getIdentifier() {
         return `${this.assetName}.${this.x}.${this.y}`;
     }
 
-    draw(canvas, assetManager) {
+    draw(canvas, assetManager, zoom = 1) {
         const asset = assetManager.getAsset(this.assetName);
         if (!asset) {
-            console.log(this.assetName);
+            console.log(`INVALID ASSET: ${this.assetName}`);
+            return;
         }
         const drawX = this.x - asset.width / 2;
         const drawY = this.y - asset.height / 2;
 
-        canvas.drawImage(asset, drawX, drawY, asset.width, asset.height);
+        canvas.drawImage(asset, drawX, drawY, zoom * asset.width, zoom * asset.height);
     }
 }

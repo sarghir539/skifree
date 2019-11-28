@@ -91,8 +91,7 @@ export class ObstacleManager {
     calculateOpenPosition(minX, maxX, minY, maxY, counter) {
         const x = randomInt(minX, maxX);
         const y = randomInt(minY, maxY);
-        console.log(`x: ${x} - y: ${y}| minX: ${minX} - maxX: ${maxX} | minY: ${minY} - maxY: ${maxY}`);
-
+        
         const foundCollision = this.obstacles.find((obstacle) => {
             return (
                 x > (obstacle.x - DISTANCE_BETWEEN_OBSTACLES) &&

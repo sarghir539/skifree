@@ -2,3 +2,21 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+.overlay {
+  position: fixed;
+  display: block;
+  width: 200px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.overlay-row {
+    height: 30px;
+    margin: 10px;
+    color: rgba(255, 255, 255);
+  }

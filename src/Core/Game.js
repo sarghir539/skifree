@@ -3,6 +3,7 @@ import * as Constants from "../Constants";
 import { AssetManager } from "./AssetManager";
 import { Canvas } from './Canvas';
 import { ObstacleManager } from "../Entities/Obstacles/ObstacleManager";
+import { Overlay } from "./Overlay";
 import { Rect } from './Utils';
 import { Rhino } from "../Entities/Rhino";
 import { Skier } from "../Entities/Skier";
@@ -13,17 +14,20 @@ export class Game {
     constructor() {
         this.assetManager = new AssetManager();
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
+        this.overlay = new Overlay('overlay', 'overlay-row');
         this.skier = new Skier(0, 0);
         this.rhino = new Rhino(-100, 0);
         this.obstacleManager = new ObstacleManager();
-        this.gameOver = false;
-        this.startTime = Date.now();
-
+        this.gameState = Constants.GAME_STATE.RUNNING;
+        this.score = 0;
+        this.lives = Constants.SKIER_STARTING_LIVES;
+        
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
 
     init() {
-        this.obstacleManager.placeInitialObstacles();        
+        this.obstacleManager.placeInitialObstacles();
+        this.overlay.show();
     }
 
     async load() {
@@ -31,35 +35,62 @@ export class Game {
     }
 
     run() {
-        this.canvas.clearCanvas();
+            this.canvas.clearCanvas();
 
-        this.updateGameWindow();
-        this.drawGameWindow();
-
-        requestAnimationFrame(this.run.bind(this));        
+            this.updateGameWindow();
+            this.drawGameWindow();
+            if (this.gameState === Constants.GAME_STATE.RUNNING) {
+                requestAnimationFrame(this.run.bind(this));
+            }
     }
 
-    updateGameWindow() {        
-        this.skier.move();
+    setLives(lives) {
+        this.lives = lives;
+        this.overlay.updateLivesInfo(this.lives);
+    }
+    updateScore(score) {
+        this.score += score;
+        this.overlay.updateScoreInfo(this.score);
+    }
+
+    updateGameWindow() {
+
+        if (this.lives > 0) {
+            const initialPosition = this.skier.getPosition();        
+            this.skier.move();
+            // update game score based on y distance
+            this.updateScore(Math.floor(this.skier.getPosition().y - initialPosition.y));
+        }
+        
         setTimeout(() => {
+            // start rhino chase after a delay
             this.rhino.chase(this.skier.getPosition());
+            // if skier was caught set lives to 0
             if (this.rhino.checkIfSkierWasCaught(this.skier, this.assetManager)) {
-                this.gameOver = true;
+                this.setLives(0);
             }
-        }, 10000);
+        }, Constants.RHINO_CHASE_DELAY_TIME_MS);
 
         const previousGameWindow = this.gameWindow;
         this.calculateGameWindow();
 
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
-        this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager);        
+        if (this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager)) {
+            // update lives for each crash - game is over when lives counter reaches 0
+            this.setLives(this.lives - 1);
+            if (this.lives === 0) {
+                this.gameState = Constants.GAME_STATE.OVER;
+            }
+        }
     }
 
     drawGameWindow() {
         this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
 
-        this.skier.draw(this.canvas, this.assetManager);
-        this.rhino.draw(this.canvas, this.assetManager);
+        if (this.lives > 0) {
+            this.skier.draw(this.canvas, this.assetManager);    
+        }
+        this.rhino.draw(this.canvas, this.assetManager, 2);
         this.obstacleManager.drawObstacles(this.canvas, this.assetManager);
     }
 
@@ -69,6 +100,13 @@ export class Game {
         const top = skierPosition.y - (Constants.GAME_HEIGHT / 2);
 
         this.gameWindow = new Rect(left, top, left + Constants.GAME_WIDTH, top + Constants.GAME_HEIGHT);
+    }
+
+    togglePause() {
+        this.gameState = (this.gameState === Constants.GAME_STATE.PAUSED
+            ? Constants.GAME_STATE.RUNNING
+            : Constants.GAME_STATE.PAUSED);
+        this.run();    
     }
 
     handleKeyDown(event) {
@@ -92,7 +130,11 @@ export class Game {
             case Constants.KEYS.SPACE:
                 this.skier.jumpStart();
                 event.preventDefault();
-                break;    
+                break;
+            case Constants.KEYS.P:
+                this.togglePause();
+                event.preventDefault();
+                break;        
         }
     }
 }
