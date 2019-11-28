@@ -4,7 +4,8 @@
   "description": "Ceros full stack developer code challenge",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p",
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "test": "jest"
