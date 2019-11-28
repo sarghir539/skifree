@@ -1,4 +1,5 @@
 import * as Constants from "../../Constants";
+
 import { Entity } from "../Entity";
 import { randomInt } from '../../Core/Utils';
 
@@ -11,13 +12,11 @@ const assetTypes = [
 ];
 
 export class Obstacle extends Entity {
-    jumpable = false;
-
     constructor(x, y) {
         super(x, y);
 
         const assetIdx = randomInt(0, assetTypes.length - 1);
         this.assetName = assetTypes[assetIdx];
-        this.jumpable = (this.assetName === Constants.ROCK) || (this.assetName === Constants.ROCK2);
+        this.jumpable = (this.assetName === Constants.ROCK1) || (this.assetName === Constants.ROCK2);
     }
 }

@@ -93,6 +93,8 @@ how creative candidates get with this.
 We are looking forward to see what you come up with!
 
 
+*************************************************
+
 CHANGELOG(11/27)
 * Bug fix: Fixed an issue in Skier.turnLeft() method where direction became invalid (-1) after a skier crashed and was moved to the left
 * Bug fix: Fixed an issue in Skier.turnRight() to properly handle direction change after skier crashed and was moved to the right
