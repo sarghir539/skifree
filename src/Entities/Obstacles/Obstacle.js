@@ -19,4 +19,8 @@ export class Obstacle extends Entity {
         this.assetName = assetTypes[assetIdx];
         this.jumpable = (this.assetName === Constants.ROCK1) || (this.assetName === Constants.ROCK2);
     }
+
+    draw(canvas, assetManager) {
+        super.draw(canvas, assetManager, this.assetName === Constants.RAMP ? 2 : 1);
+    }
 }

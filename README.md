@@ -110,7 +110,7 @@ CHANGELOG
 * Added RhinoEat as a Rhino animation
 * Added RhinoRun as a Rhino animation
 * Added unit tests for Rhino
-* Bug fix: added a counter to ObstacleManager.calculateOpenPosition() to avoid infinite loops
+* Bug fix: added a counter property to ObstacleManager.calculateOpenPosition() to avoid infinite loops
 
 
 ** 11/28/2019 **
@@ -121,3 +121,7 @@ CHANGELOG
 * Added zoom functionality for drawing assets
 * Rhino is now twice as big (and twice as scary!)
 * Added Animation unit tests
+
+** 11/29/2019 **
+* Added Powerup entities and a PowerupManager
+* Ramp is now twice as big to allow for easier jumps

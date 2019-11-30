@@ -2,7 +2,7 @@ import * as Constants from "../Constants";
 
 import { Animation } from "./Animation";
 
-export const SKIER_JUMPING_ASSET = [
+const SKIER_JUMPING_ASSETS = [
     Constants.SKIER_JUMP_1,
     Constants.SKIER_JUMP_2,
     Constants.SKIER_JUMP_3,
@@ -10,12 +10,7 @@ export const SKIER_JUMPING_ASSET = [
 ];
 
 export class Jump extends Animation {
-    constructor() {
-        super(40, 10);
+    constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET, loop = false) {
+        super(SKIER_JUMPING_ASSETS, speed, loop);
     }
-
-    getAsset() {
-        return SKIER_JUMPING_ASSET[Math.floor(this.frameCounter/this.framesPerAsset)]
-    }
-
 }

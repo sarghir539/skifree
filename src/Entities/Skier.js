@@ -146,20 +146,34 @@ export class Skier extends Entity {
         return false;
     };
 
-    // detect skier/obstacle collision
-    getCollision(skierBounds, obstacle, assetManager) {
-        const obstacleBounds = obstacle.getAssetBounds(assetManager);
+    // detect skier collision with any other game entity
+    getCollision(skierBounds, entity, assetManager) {
+        const entityBounds = entity.getAssetBounds(assetManager);
             
         // check for collision only if there isn't already an existing collision 
         if (!this.collisionEntity || 
             (this.collisionEntity &&
-            this.collisionEntity.getIdentifier() !== obstacle.getIdentifier())) {
-                const isCollision = intersectTwoRects(skierBounds, obstacleBounds);
+            this.collisionEntity.getIdentifier() !== entity.getIdentifier())) {
+                const isCollision = intersectTwoRects(skierBounds, entityBounds);
                 if (isCollision) {
-                    this.collisionEntity = obstacle;
+                    this.collisionEntity = entity;
                 }
                 return isCollision;
             }
         return false;
     }
+
+    checkIfSkierHitPowerup(powerupManager, assetManager) {
+        const skierBounds = this.getAssetBounds(assetManager);
+        const hitPowerup = powerupManager.getPowerups().find((powerup) => {
+            const powerupBounds = powerup.getAssetBounds(assetManager);
+            return intersectTwoRects(skierBounds, powerupBounds);
+        });
+        if (hitPowerup) {
+            // remove powerup if hit
+            powerupManager.removePowerup(hitPowerup);
+            return true;
+        }
+        return false;
+    };
 }

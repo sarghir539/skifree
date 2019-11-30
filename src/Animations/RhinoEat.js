@@ -2,7 +2,7 @@ import * as Constants from "../Constants";
 
 import { Animation } from "./Animation";
 
-export const RHINO_EAT_ASSET = [
+const RHINO_EAT_ASSETS = [
     Constants.RHINO_EAT_1,
     Constants.RHINO_EAT_2,
     Constants.RHINO_EAT_3,
@@ -12,12 +12,7 @@ export const RHINO_EAT_ASSET = [
 ];
 
 export class RhinoEat extends Animation {
-    constructor() {
-        super(60, 10);
+    constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET, loop = false) {
+        super(RHINO_EAT_ASSETS, speed, loop);
     }
-
-    getAsset() {
-        return RHINO_EAT_ASSET[Math.floor(this.frameCounter/this.framesPerAsset)]
-    }
-
 }

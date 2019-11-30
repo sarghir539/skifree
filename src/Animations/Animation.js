@@ -1,14 +1,19 @@
 export class Animation {
-    constructor(maxFrames, framesPerAsset, loop) {
-        this.maxFrames = maxFrames;
+    constructor(assets, framesPerAsset, loop) {
         this.framesPerAsset = framesPerAsset;
         this.loop = loop;
         this.frameCounter = 0;
         this.animationRunning = false;
+        this.assets = assets;
+        this.maxFrames = framesPerAsset * assets.length;
     }
 
     isRunning() {
         return this.animationRunning;
+    }
+
+    getAsset() {
+        return this.assets[Math.floor(this.frameCounter/this.framesPerAsset)]
     }
 
     nextFrame() {
