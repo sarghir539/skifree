@@ -63,13 +63,21 @@ export class Game {
         // reset game data
         this.init();
         // hide splash screen
-        this.splash.display(false);
+        this.splash.hide();
         // record start time (we need this to know when to start the rhino chase)
         this.startTime = performance.now();
         // set game state to RUNNING
         this.gameState = Constants.GAME_STATE.RUNNING;
-        // and run
+        // and start game loop
         this.run();
+    }
+
+    // creates or returns an existing rhino entity
+    getRhino() {
+        if (!this.rhino) {
+            this.rhino = new Rhino(this.skier.getPosition().x, this.skier.getPosition().y - 200);
+        }
+        return this.rhino;
     }
 
     isChaseStarted() {
@@ -89,16 +97,12 @@ export class Game {
             
             // start rhino chase after a delay
             if (this.isChaseStarted()) {
-                if (!this.rhino) {
-                    // create rhino entity behind the skier
-                    this.rhino = new Rhino(this.skier.getPosition().x, this.skier.getPosition().y - 200);
-                }
-                this.rhino.chase(this.skier.getPosition());
+                this.getRhino().chase(this.skier.getPosition());
                 // if skier was caught set lives to 0
-                if (this.rhino.checkIfSkierWasCaught(this.skier, this.assetManager)) {
+                if (this.getRhino().checkIfSkierWasCaught(this.skier, this.assetManager)) {
                     this.lives = 0;
                     this.skierCaught = true;
-                    this.splash.setTitle("GAME OVER!");
+                    this.splash.displayInfo("GAME OVER!");
                 }
             }    
         }
@@ -109,23 +113,46 @@ export class Game {
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
         this.powerupManager.placeNewPowerup(this.gameWindow, previousGameWindow);
         
-        if (this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager)) {
+        // check for obstacle collision unless skier has immunity to crashes
+        if (!this.skier.hasImmunity() && this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager)) {
             // update lives for each crash - game is over when lives counter reaches 0
             this.lives--;
             if (this.lives === 0) {
                 this.gameState = Constants.GAME_STATE.OVER;
-                this.splash.setTitle("GAME OVER!");
+                this.splash.displayInfo("GAME OVER!");
             }
         }
 
-        if (this.skier.checkIfSkierHitPowerup(this.powerupManager, this.assetManager)) {
-            // increase lives counter if powerup was hit
-            // TODO: add handling of shield powerup (skier temp immunity)
-            this.lives++;
-            this.splash.setTitle("EXTRA LIFE!", true);
+        const powerup = this.skier.checkIfSkierHitPowerup(this.powerupManager, this.assetManager) 
+        if (powerup) {
+            // update game state based on powerup
+            this.handlePowerup(powerup);
         }
 
         this.overlay.updateGameInfo(this);
+    }
+
+    handlePowerup(powerup) {
+        switch (powerup) {
+            case Constants.POWERUP_COCOA:
+            case Constants.POWERUP_PIZZA:
+                // extra life
+                if (this.lives < Constants.SKIER_STARTING_LIVES) {
+                    this.lives++;
+                    this.splash.displayInfo("EXTRA LIFE!", true);
+                }
+                break;
+            case Constants.POWERUP_SHIELD:
+                // immunity to crashes
+                this.skier.setImmunity(Constants.SKIER_IMMUNITY_TIME_MS);
+                this.splash.displayInfo(`CRASH IMMUNITY!`, true);
+                break;
+            case Constants.POWERUP_TROPHY:
+                // extra score
+                this.score += 10000;
+                this.splash.displayInfo("EXTRA POINTS!", true);
+                break;            
+        }
     }
 
     drawGameWindow() {
@@ -135,7 +162,7 @@ export class Game {
             this.skier.draw(this.canvas, this.assetManager);    
         }
         if (this.isChaseStarted()) {
-            this.rhino.draw(this.canvas, this.assetManager, 2);
+            this.getRhino().draw(this.canvas, this.assetManager, 2);
         }
         this.obstacleManager.drawObstacles(this.canvas, this.assetManager);
         this.powerupManager.drawPowerups(this.canvas, this.assetManager);

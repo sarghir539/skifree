@@ -15,15 +15,19 @@ export class Splash {
         this.splash = document.body.appendChild(splash);
     }
 
-    display(on = true, autoHide = false) {
-        this.splash.style.display = on ? 'block' : 'none';
-        if (on && autoHide) {
-            setTimeout(() => { this.display(false); }, SPLASH_DISPLAY_TIMEOUT_MS);    
+    show(autoHide = false) {
+        this.splash.style.display = 'block';
+        if (autoHide) {
+            setTimeout(() => this.hide(), SPLASH_DISPLAY_TIMEOUT_MS);    
         }
     }
 
-    setTitle(title, autoHide = false) {
-        this.splash.innerText = title;
-        this.display(true, autoHide);
+    hide() {
+        this.splash.style.display = 'none';
+    }
+
+    displayInfo(info, autoHide = false) {
+        this.splash.innerText = info;
+        this.show(autoHide);
     }
 }

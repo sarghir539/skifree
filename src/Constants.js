@@ -28,10 +28,12 @@ export const RHINO_RUN_2 = 'rhinoRun2';
 export const POWERUP_PIZZA = 'powerupPizza';
 export const POWERUP_COCOA = 'powerupCocoa';
 export const POWERUP_SHIELD = 'powerupShield';
+export const POWERUP_TROPHY = 'powerupTrophy';
 
 export const SKIER_STARTING_SPEED = 5;
 export const SKIER_STARTING_LIVES = 10;
 export const SKIER_DIAGONAL_SPEED_REDUCER = 1.4142;
+export const SKIER_IMMUNITY_TIME_MS = 10000;
 export const RHINO_CHASE_DELAY_TIME_MS = 10000;
 export const RHINO_STARTING_SPEED = 4;
 export const DEFAULT_FRAMES_PER_ASSET = 10;
@@ -63,7 +65,8 @@ export const ASSETS = {
     [RHINO_RUN_2]: 'img/rhino_run_left_2.png',
     [POWERUP_PIZZA]: 'img/powerup_pizza.png',
     [POWERUP_COCOA]: 'img/powerup_cocoa.png',
-    [POWERUP_SHIELD]: 'img/powerup_shield.png'
+    [POWERUP_SHIELD]: 'img/powerup_shield.png',
+    [POWERUP_TROPHY]: 'img/powerup_trophy.png'
 };
 
 export const SKIER_DIRECTIONS = {

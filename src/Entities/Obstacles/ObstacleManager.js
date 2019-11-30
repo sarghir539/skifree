@@ -89,6 +89,9 @@ export class ObstacleManager {
     }
 
     calculateOpenPosition(minX, maxX, minY, maxY, counter) {
+        if (counter > 10) {
+            return null;
+        }
         const x = randomInt(minX, maxX);
         const y = randomInt(minY, maxY);
         
@@ -101,7 +104,7 @@ export class ObstacleManager {
             );
         });
 
-        if(foundCollision && counter < 10) {
+        if(foundCollision) {
             return this.calculateOpenPosition(minX, maxX, minY, maxY, counter + 1);
         }
         else {

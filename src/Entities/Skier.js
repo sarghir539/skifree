@@ -9,6 +9,7 @@ export class Skier extends Entity {
     assetName = Constants.SKIER_DOWN;
     direction = Constants.SKIER_DIRECTIONS.DOWN;
     speed = Constants.SKIER_STARTING_SPEED;
+    immunity = false;
     collisionEntity = null;
     isJumping = false;
     jumpAnimation = new Jump();
@@ -26,6 +27,15 @@ export class Skier extends Entity {
         this.speed = speed;
     }
 
+    setImmunity(duration) {
+        this.immunity = true;
+        setTimeout(() => { this.immunity = false; }, duration)
+    }
+
+    hasImmunity() {
+        return this.immunity;
+    }
+    
     updateAsset() {
         this.assetName = Constants.SKIER_DIRECTION_ASSET[this.direction];
     }
@@ -172,8 +182,8 @@ export class Skier extends Entity {
         if (hitPowerup) {
             // remove powerup if hit
             powerupManager.removePowerup(hitPowerup);
-            return true;
+            return hitPowerup.getAssetName();
         }
-        return false;
+        return null;
     };
 }
