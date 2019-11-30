@@ -114,7 +114,7 @@ CHANGELOG
 
 
 ** 11/28/2019 **
-* Added pause functionality toggled by pressing the P key
+* Added pause functionality toggled by pressing the 'P' key
 * Added game Overlay to display basic game info
 * Added score to the game (based on distance)
 * Added lives counter to the game (initially 10)
@@ -125,3 +125,7 @@ CHANGELOG
 ** 11/29/2019 **
 * Added Powerup entities and a PowerupManager
 * Ramp is now twice as big to allow for easier jumps
+* Added functionality to toggle the game overlay on and off by pressing the 'C' key
+* Added ability to start and restart the game by pressing the 'S' key
+* Rhino is now rendered on screen right behind the skier when the chase starts  
+* Added Splash class to display dynamic game information (powerup, game over, etc) 

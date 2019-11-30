@@ -85,12 +85,14 @@ export const SKIER_DIRECTION_ASSET = {
 };
 
 export const KEYS = {
-    LEFT : 37,
-    RIGHT : 39,
-    UP : 38,
-    DOWN : 40,
-    SPACE: 32,
-    P: 80,
+    LEFT : 37,  // move left
+    RIGHT : 39, // move right
+    UP : 38,    // move up
+    DOWN : 40,  // move down
+    SPACE: 32,  // jump
+    P: 80,      // pause game
+    C: 67,      // toggle game overlay 
+    S: 83       // start game
 };
 
 export const GAME_STATE = {
