@@ -70,6 +70,7 @@ export class Overlay {
         const separator = document.createElement('hr');
         this.overlay.appendChild(separator);
     }
+
     updateInfoRow(id, name, value) {
         const infoRow = document.getElementById(id);
         infoRow.innerText = `${name}${value !== undefined ? ': ': ''}${value !== undefined ? value : ''}`;

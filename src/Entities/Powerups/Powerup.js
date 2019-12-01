@@ -16,18 +16,31 @@ export class Powerup extends Entity {
 
         const assetIdx = randomInt(0, assetTypes.length - 1);
         this.assetName = assetTypes[assetIdx];
-        this.frame = 0;
+        this.bounceFrame = 0;
+        this.bounceDirection = 1;
     }
 
-    draw(canvas, assetManager, zoom = 1) {
-        const current = this.getPosition();
-        if (this.frame < 40) {
-            this.y -= 5 * Math.floor(this.frame / 10);
-            this.frame++;     
-        } else {
-            this.frame = 0;
+    // draw an image bouncing vertically between 0 and bouncHeight
+    bounce(canvas, assetManager, bounceHeight, zoom = 1) {
+        const asset = assetManager.getAsset(this.assetName);
+        if (!asset) {
+            console.log(`INVALID ASSET: ${this.assetName}`);
+            return;
         }
-        super.draw(canvas, assetManager, zoom);
-        this.y = current.y;
+        const drawX = this.x - asset.width / 2;
+        const drawY = this.y - asset.height / 2  - Math.floor(this.bounceFrame / 2);
+        if (this.bounceDirection === 1) {
+            if (this.bounceFrame === bounceHeight) {
+                this.bounceDirection = -1;
+            }
+            this.bounceFrame++;
+        } else {
+            if (this.bounceFrame === 0) {
+                this.bounceDirection = 1;
+            }
+            this.bounceFrame--;
+        }
+
+        canvas.drawImage(asset, drawX, drawY, zoom * asset.width, zoom * asset.height);
     }
 }

@@ -123,9 +123,13 @@ CHANGELOG
 * Added Animation unit tests
 
 ** 11/29/2019 **
-* Added Powerup entities and a PowerupManager
+* Added Powerup entities and a PowerupManager to the game
 * Ramp is now twice as big to allow for easier jumps
 * Added functionality to toggle the game overlay on and off by pressing the 'C' key
 * Added ability to start and restart the game by pressing the 'S' key
 * Rhino is now rendered on screen right behind the skier when the chase starts  
-* Added Splash class to display dynamic game information (powerup, game over, etc) 
+* Added Splash class to display dynamic game information (powerup, game over, etc)
+
+** 11/30/2019 **
+* Added a new trophy powerup to give extra scoring points when picked up
+* Powerups are now displayed using a new bouncy animation

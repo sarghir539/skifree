@@ -85,6 +85,10 @@ export class Game {
         return currentTime - this.startTime > Constants.RHINO_CHASE_DELAY_TIME_MS;
     }
 
+    updateScore(addedScore) {
+        this.score += addedScore;
+    }
+
     // update game logic
     updateGameWindow() {
         if (this.gameState === Constants.GAME_STATE.RUNNING) {
@@ -92,7 +96,7 @@ export class Game {
                 const initialPosition = this.skier.getPosition();
                 this.skier.move();
                 // update game score based on y distance
-                this.score += Math.floor(this.skier.getPosition().y - initialPosition.y);
+                this.updateScore(Math.floor(this.skier.getPosition().y - initialPosition.y))
             }
             
             // start rhino chase after a delay
@@ -149,7 +153,7 @@ export class Game {
                 break;
             case Constants.POWERUP_TROPHY:
                 // extra score
-                this.score += 10000;
+                this.updateScore(10000);
                 this.splash.displayInfo("EXTRA POINTS!", true);
                 break;            
         }

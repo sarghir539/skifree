@@ -3,6 +3,7 @@ import { randomInt } from '../../Core/Utils';
 
 const DISTANCE_BETWEEN_POWERUPS = 100000;
 const NEW_POWERUP_CHANCE = 300;
+const BOUNCE_DISTANCE = 40; // bounce height in px
 
 export class PowerupManager {
     powerups = [];
@@ -20,7 +21,7 @@ export class PowerupManager {
 
     drawPowerups(canvas, assetManager) {
         this.powerups.forEach((powerup) => {
-            powerup.draw(canvas, assetManager);
+            powerup.bounce(canvas, assetManager, BOUNCE_DISTANCE);
         });
     }
 
