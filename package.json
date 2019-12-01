@@ -4,7 +4,7 @@
   "description": "Ceros full stack developer code challenge",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development -p --progress && node server.js",
+    "start": "webpack -p --progress && node server.js",
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "test": "jest"
