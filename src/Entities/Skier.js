@@ -40,7 +40,7 @@ export class Skier extends Entity {
         this.assetName = Constants.SKIER_DIRECTION_ASSET[this.direction];
     }
 
-    // ARG: update jumping asset based on the current asset from jump animation
+    // update jumping asset based on the current asset from jump animation
     updateJumpingAsset() {
         this.assetName = this.jumpAnimation.getAsset();
     }
@@ -58,7 +58,7 @@ export class Skier extends Entity {
                 break;
         }
 
-        // ARG: update skier asset for the jumping sequence        
+        // update skier asset for the jumping sequence        
         if (this.isJumping) {
             this.jumpAnimation.nextFrame();
             if (this.jumpAnimation.isRunning()) {
@@ -132,7 +132,7 @@ export class Skier extends Entity {
         this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
     }
 
-    // ARG: start jumping animation
+    // start jumping animation
     jumpStart() {
         this.jumpAnimation.start();
         this.isJumping = true;
@@ -186,4 +186,8 @@ export class Skier extends Entity {
         }
         return null;
     };
+
+    draw(canvas, assetManager) {
+        super.draw(canvas, assetManager, this.hasImmunity() ? 2 : 1);
+    }
 }

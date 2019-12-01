@@ -17,7 +17,7 @@ html, body {
 }
 
 .overlay-row {
-  height: 30px;
+  height: 20px;
   margin: 10px;
   color: rgba(255, 255, 255);
 }
@@ -25,16 +25,16 @@ html, body {
 .splash {
   position: absolute;
   top: 20%;
-  left: 85%;
+  left: 90%;
   background-color: rgba(200, 200, 200, 0.8);
   color: rgba(0, 0, 255);
   z-index: 1002;
   overflow: auto;
   border-radius: 25px;
-  width: 240px;
+  width: 200px;
   height: 100px;
   transform: translate(-50%, -50%);
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: center;
   vertical-align: middle;
   line-height: 100px;

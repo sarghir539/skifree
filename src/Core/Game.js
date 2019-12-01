@@ -9,6 +9,18 @@ import { Rect } from './Utils';
 import { Rhino } from "../Entities/Rhino";
 import { Skier } from "../Entities/Skier";
 import { Splash } from "./Splash";
+import { randomInt } from '../Core/Utils';
+
+const crashMessages = [
+    'Bump!',
+    'Ouch!',
+    'Again?',
+    'That hurt.',
+    'Eat more pizza!',
+    'Oops!',
+    'Whoops!'
+];
+                
 
 export class Game {
     gameWindow = null;
@@ -102,7 +114,7 @@ export class Game {
             // start rhino chase after a delay
             if (this.isChaseStarted()) {
                 this.getRhino().chase(this.skier.getPosition());
-                // if skier was caught set lives to 0
+                // if skier is caught set lives to 0
                 if (this.getRhino().checkIfSkierWasCaught(this.skier, this.assetManager)) {
                     this.lives = 0;
                     this.skierCaught = true;
@@ -124,19 +136,22 @@ export class Game {
             if (this.lives === 0) {
                 this.gameState = Constants.GAME_STATE.OVER;
                 this.splash.displayInfo("GAME OVER!");
+            } else {
+                const index = randomInt(0, crashMessages.length - 1);
+                this.splash.displayInfo(crashMessages[index], true);
             }
         }
 
         const powerup = this.skier.checkIfSkierHitPowerup(this.powerupManager, this.assetManager) 
         if (powerup) {
             // update game state based on powerup
-            this.handlePowerup(powerup);
+            this.handlePowerups(powerup);
         }
 
         this.overlay.updateGameInfo(this);
     }
 
-    handlePowerup(powerup) {
+    handlePowerups(powerup) {
         switch (powerup) {
             case Constants.POWERUP_COCOA:
             case Constants.POWERUP_PIZZA:
