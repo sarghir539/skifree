@@ -12,15 +12,6 @@ describe('Animation tests', () => {
         expect(animation.animationRunning).toEqual(false);
     });
 
-    test('constructor', () => {
-        const animation = new Animation(assets, 10, false);
-        expect(animation.frameCounter).toEqual(0);
-        expect(animation.maxFrames).toEqual(40);
-        expect(animation.framesPerAsset).toEqual(10);
-        expect(animation.loop).toEqual(false);
-        expect(animation.animationRunning).toEqual(false);
-    });
-
     test('isRunning', () => {
         const animation = new Animation(assets, 10, false);
         animation.start();
@@ -28,7 +19,7 @@ describe('Animation tests', () => {
         expect(animation.isRunning()).toEqual(true);
     });
 
-    test('nextFrame() when frame counter is less than maxFrames and loop is false', () => {
+    test('nextFrame when frame counter is less than maxFrames and loop is false', () => {
         const animation = new Animation(assets, 10, false);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
@@ -38,7 +29,7 @@ describe('Animation tests', () => {
         expect(animation.frameCounter).toEqual(2);
     });
 
-    test('nextFrame() when frame counter is less than maxFrames and loop is true', () => {
+    test('nextFrame when frame counter is less than maxFrames and loop is true', () => {
         const animation = new Animation(assets, 10, true);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
@@ -48,7 +39,7 @@ describe('Animation tests', () => {
         expect(animation.frameCounter).toEqual(2);
     });
 
-    test('nextFrame() when frame counter is equal to maxFrames and loop is false', () => {
+    test('nextFrame when frame counter is equal to maxFrames and loop is false', () => {
         const animation = new Animation(assets, 10, false);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
@@ -59,7 +50,7 @@ describe('Animation tests', () => {
         expect(animation.isRunning()).toEqual(false);
     });
 
-    test('nextFrame() when frame counter is equal to maxFrames and loop is true', () => {
+    test('nextFrame when frame counter is equal to maxFrames and loop is true', () => {
         const animation = new Animation(assets, 10, true);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
@@ -70,13 +61,13 @@ describe('Animation tests', () => {
         expect(animation.isRunning()).toEqual(true);
     });
 
-    test('start()', () => {
+    test('start', () => {
         const animation = new Animation(assets, 10, true);
         animation.start();
         expect(animation.isRunning()).toEqual(true);
     });
 
-    test('stop() when loop is false', () => {
+    test('stop when loop is false', () => {
         const animation = new Animation(assets, 10, false);
         animation.start();
         animation.stop();
@@ -84,7 +75,7 @@ describe('Animation tests', () => {
         expect(animation.isRunning()).toEqual(false);
     });
 
-    test('stop() when loop is true', () => {
+    test('stop when loop is true', () => {
         const animation = new Animation(assets, 10, true);
         animation.start();
         animation.stop();

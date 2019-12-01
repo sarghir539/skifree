@@ -21,7 +21,6 @@ const crashMessages = [
     'Whoops!'
 ];
                 
-
 export class Game {
     gameWindow = null;
 
@@ -29,7 +28,7 @@ export class Game {
         this.assetManager = new AssetManager();
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.overlay = new Overlay('overlay', 'overlay-row');
-        this.splash = new Splash('splash', `Press 'S' to start`); 
+        this.splash = new Splash('splash', Constants.SPLASH_MESSAGES.START_GAME); 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
 
@@ -118,7 +117,7 @@ export class Game {
                 if (this.getRhino().checkIfSkierWasCaught(this.skier, this.assetManager)) {
                     this.lives = 0;
                     this.skierCaught = true;
-                    this.splash.displayInfo("GAME OVER!");
+                    this.splash.displayInfo(Constants.SPLASH_MESSAGES.GAME_OVER);
                 }
             }    
         }
@@ -135,7 +134,7 @@ export class Game {
             this.lives--;
             if (this.lives === 0) {
                 this.gameState = Constants.GAME_STATE.OVER;
-                this.splash.displayInfo("GAME OVER!");
+                this.splash.displayInfo(Constants.SPLASH_MESSAGES.GAME_OVER);
             } else {
                 const index = randomInt(0, crashMessages.length - 1);
                 this.splash.displayInfo(crashMessages[index], true);
@@ -148,6 +147,7 @@ export class Game {
             this.handlePowerups(powerup);
         }
 
+        // update game overlay
         this.overlay.updateGameInfo(this);
     }
 
@@ -158,18 +158,18 @@ export class Game {
                 // extra life
                 if (this.lives < Constants.SKIER_STARTING_LIVES) {
                     this.lives++;
-                    this.splash.displayInfo("EXTRA LIFE!", true);
+                    this.splash.displayInfo(Constants.SPLASH_MESSAGES.EXTRA_LIFE, true);
                 }
                 break;
             case Constants.POWERUP_SHIELD:
                 // immunity to crashes
                 this.skier.setImmunity(Constants.SKIER_IMMUNITY_TIME_MS);
-                this.splash.displayInfo(`CRASH IMMUNITY!`, true);
+                this.splash.displayInfo(Constants.SPLASH_MESSAGES.CRASH_IMMUNITY, true);
                 break;
             case Constants.POWERUP_TROPHY:
                 // extra score
-                this.updateScore(10000);
-                this.splash.displayInfo("EXTRA POINTS!", true);
+                this.updateScore(Constants.POWERUP_TROPHY_POINTS);
+                this.splash.displayInfo(Constants.SPLASH_MESSAGES.EXTRA_POINTS, true);
                 break;            
         }
     }

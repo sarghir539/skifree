@@ -37,6 +37,7 @@ export const SKIER_IMMUNITY_TIME_MS = 10000;
 export const RHINO_CHASE_DELAY_TIME_MS = 10000;
 export const RHINO_STARTING_SPEED = 4;
 export const DEFAULT_FRAMES_PER_ASSET = 10;
+export const POWERUP_TROPHY_POINTS = 10000;
 
 const imagePath = require.context('../img', true);
 export const ASSETS = {
@@ -104,4 +105,13 @@ export const GAME_STATE = {
     RUNNING: 1,
     PAUSED: 2,
     OVER: 3
+}
+
+export const SPLASH_MESSAGES = {
+    START_GAME: `Press 'S' to start`,
+    GAME_OVER: "GAME OVER!",
+    EXTRA_LIFE: 'EXTRA LIFE!',
+    CRASH_IMMUNITY: 'CRASH_IMMUNITY!',
+    EXTRA_POINTS: 'EXTRA POINTS!'
+
 }

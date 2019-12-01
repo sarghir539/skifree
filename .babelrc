@@ -6,6 +6,7 @@
       {
         "loose": true
       }
-    ]
+    ],
+    "transform-require-context"
   ]
 }
