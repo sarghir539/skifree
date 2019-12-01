@@ -23,18 +23,18 @@ html, body {
 }
 
 .splash {
-  position: absolute;
-  top: 20%;
-  left: 90%;
+  position: fixed;
+  top: 30px;
+  right: 30px;
   background-color: rgba(200, 200, 200, 0.8);
-  color: rgba(0, 0, 255);
+  color: rgba(0, 0, 0);
   z-index: 1002;
   overflow: auto;
   border-radius: 25px;
+  border: 2px solid rgba(100, 100, 100, 0.8);
   width: 200px;
   height: 100px;
-  transform: translate(-50%, -50%);
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
   vertical-align: middle;
   line-height: 100px;

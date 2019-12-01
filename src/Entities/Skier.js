@@ -187,6 +187,7 @@ export class Skier extends Entity {
         return null;
     };
 
+    // overwrite draw method to zoom skier if it has immunity
     draw(canvas, assetManager) {
         super.draw(canvas, assetManager, this.hasImmunity() ? 2 : 1);
     }
