@@ -6,7 +6,11 @@
       {
         "loose": true
       }
-    ],
-    "transform-require-context"
-  ]
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [ "transform-require-context" ]
+    }
+  }
 }
