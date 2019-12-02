@@ -48,7 +48,7 @@ export class Game {
         this.chaseStarted = false;
         this.lives = Constants.SKIER_STARTING_LIVES;
         this.gameState = Constants.GAME_STATE.INITIALIZED;
-        this.startTime = 0;
+        this.startTime = performance.now();
         
         this.obstacleManager = new ObstacleManager();
         this.obstacleManager.placeInitialObstacles();
