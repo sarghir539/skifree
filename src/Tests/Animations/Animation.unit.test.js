@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 import { Animation } from "../../Animations/Animation";
 
 describe('Animation tests', () => {

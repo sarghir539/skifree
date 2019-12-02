@@ -39,6 +39,16 @@ export class Entity {
     }
 
     /**
+     * Specifies the current position of the asset
+     * @param {number} x horizontal position
+     * @param {number} y vertical position
+     */
+    setPosition(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * Returns the bounds of the asset
      * @param {AssetManager} assetManager
      * @returns {Rect}

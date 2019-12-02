@@ -142,7 +142,7 @@ export class Game {
             
             // start rhino chase after a delay
             if (this.isChaseStarted()) {
-                this.getRhino().chase(this.skier.getPosition());
+                this.getRhino().chase(this.skier);
                 // if skier is caught set lives to 0, display splash info
                 if (this.getRhino().checkIfSkierWasCaught(this.skier, this.assetManager)) {
                     this.lives = 0;
@@ -160,9 +160,8 @@ export class Game {
         // try to place a new powerup
         this.powerupManager.placeNewPowerup(this.gameWindow, previousGameWindow);
         
-        // check for obstacle collision - unless skier has immunity to crashes
-        if (!this.skier.hasImmunity() &&
-            this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager)) {
+        // check for obstacle collision
+        if (this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager)) {
             // update lives for each crash - game is over when lives counter reaches 0
             this.lives--;
             // if lives counter reaches 0 it's game over, otherwise display a random crash splash message

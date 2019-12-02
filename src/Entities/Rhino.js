@@ -37,14 +37,15 @@ export class Rhino extends Entity {
      * Selects the rhino asset based on the current chase state
      * When the chase is on and the skier was not caught the rhino will display the run animation
      * When the skier is caught the rhino will display the eat animation 
-     * @param {object} target current skier position - (x, y) pair
+     * @param {Skier} skier skier entity
      */
-    chase(target) {
+    chase(skier) {
         // if skier is caught display the eat animation
         if (this.skierCaught) {
             this.eatAnimation.nextFrame();
             this.assetName = this.eatAnimation.getAsset();
         } else {
+            const target = skier.getPosition();
             // find the sortest distance between the current rhino position and the target(skier) position 
             let xDistance = target.x - this.x;
             let yDistance = target.y - this.y;

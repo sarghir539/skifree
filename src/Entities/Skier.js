@@ -24,7 +24,6 @@ export class Skier extends Entity {
     constructor(x, y) {
         super(x, y);
         this.jumpAnimation = new Jump();
-
     }
 
     /**
@@ -209,8 +208,33 @@ export class Skier extends Entity {
      * @param {AssetManager} assetManager
      */
     checkIfSkierHitObstacle(obstacleManager, assetManager) {
+
+        // skip check if skier has immunity
+        if (this.hasImmunity()) {
+            return false;
+        }
+            
+        // get skier bounds
         const skierBounds = this.getAssetBounds(assetManager);
-        const collision = obstacleManager.getObstacles().find((obstacle) => this.getCollision(skierBounds, obstacle, assetManager));
+        
+        const collision = obstacleManager.getObstacles().find((obstacle) => {
+            // skip collision check if there is already a collision with the same entity
+            if (this.collisionEntity &&
+                this.collisionEntity.getIdentifier() === obstacle.getIdentifier()) {
+                return false;
+            }
+            // get obstacle bounds
+            const obstacleBounds = obstacle.getAssetBounds(assetManager);
+
+            // check for skier-obstacle collision
+            if (intersectTwoRects(skierBounds, obstacleBounds)) {
+                this.collisionEntity = obstacle;
+                return true;
+            }
+            return false;
+        });
+
+        // process collision
         if (collision) {
             // if obstacle is a ramp - jump
             if (this.collisionEntity.getAssetName() === Constants.RAMP) {
@@ -227,28 +251,6 @@ export class Skier extends Entity {
     };
 
     /**
-     * Detect skier collision with another game entity
-     * @param {Rect} skierBounds current skier asset bounds 
-     * @param {Entity} entity entity to check for collision
-     * @param {AssetManager} assetManager
-     */
-    getCollision(skierBounds, entity, assetManager) {
-        const entityBounds = entity.getAssetBounds(assetManager);
-            
-        // check for collision only if there isn't already an existing collision 
-        if (!this.collisionEntity || 
-            (this.collisionEntity &&
-            this.collisionEntity.getIdentifier() !== entity.getIdentifier())) {
-                const isCollision = intersectTwoRects(skierBounds, entityBounds);
-                if (isCollision) {
-                    this.collisionEntity = entity;
-                }
-                return isCollision;
-            }
-        return false;
-    }
-
-    /**
      * Verifies if skier picked up any powerups
      * @param {PowerupManager} powerupManager
      * @param {AssetManager} assetManager
@@ -260,7 +262,7 @@ export class Skier extends Entity {
             return intersectTwoRects(skierBounds, powerupBounds);
         });
         if (hitPowerup) {
-            // remove powerup if hit
+            // remove powerup if picked up
             powerupManager.removePowerup(hitPowerup);
             return hitPowerup.getAssetName();
         }

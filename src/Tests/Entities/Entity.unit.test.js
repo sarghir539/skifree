@@ -8,11 +8,10 @@ describe('Entity tests', () => {
     
     const assetManager = new AssetManager();
     assetManager.loadedAssets = {
-        [1]: new Image(200, 200),
-        [2]: new Image(300, 300),
-        [3]: new Image(400, 400)
+        [1]: new Image(64, 64),
+        [2]: new Image(64, 64),
+        [3]: new Image(64, 64)
     };
-    assetManager.loadSingleAsset()
     let entity;
     beforeEach(() => {
         entity = new Entity(100, 100);
@@ -23,8 +22,8 @@ describe('Entity tests', () => {
     });
 
     test('getAssetName', () => {
-        entity.assetName = 'test';
-        expect(entity.getAssetName()).toEqual('test');
+        entity.assetName = '1';
+        expect(entity.getAssetName()).toEqual('1');
     });
     
     test('getPosition', () => {
@@ -35,8 +34,9 @@ describe('Entity tests', () => {
     });
 
     test('getAssetBounds', () => {
-        entity.assetName = '1'; 
-        expect(entity.getAssetBounds(assetManager)).toEqual(new Rect(0, 0, 200, 200));
+        entity.assetName = '1';
+        entity.setPosition(100, 100);
+        expect(entity.getAssetBounds(assetManager)).toEqual(new Rect(68, 68, 132, 132));
     });
 
     test('getIdentifier', () => {
