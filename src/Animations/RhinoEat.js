@@ -11,6 +11,9 @@ const RHINO_EAT_ASSETS = [
     Constants.RHINO_EAT_6
 ];
 
+/**
+ * Animation that depicts the rhino eating the skier
+ */
 export class RhinoEat extends Animation {
     constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET, loop = false) {
         super(RHINO_EAT_ASSETS, speed, loop);

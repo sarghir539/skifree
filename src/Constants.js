@@ -109,7 +109,7 @@ export const GAME_STATE = {
 
 export const SPLASH_MESSAGES = {
     START_GAME: `Press 'S' to start`,
-    GAME_OVER: "GAME OVER!",
+    GAME_OVER: 'GAME OVER!',
     EXTRA_LIFE: 'EXTRA LIFE!',
     CRASH_IMMUNITY: 'CRASH_IMMUNITY!',
     EXTRA_POINTS: 'EXTRA POINTS!'

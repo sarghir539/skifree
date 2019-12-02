@@ -8,8 +8,18 @@ const OVERLAY_FIELDS = {
     KEYMAPPING: 4
 };
 
+//TODO: move all strings displayed in the overlay into a separate structure
+ 
+/** 
+* Displays game information into a div overlay with appearance controlled through css styles
+*/
 export class Overlay {
     
+    /** 
+    * @constructor
+    * @param {string} className: css class to apply to the overlay
+    * @param {string} rowClassName: css class to apply to the overlay info row
+    */
     constructor(className, rowClassName) {
         this.className = className;
         this.rowClassName = rowClassName;
@@ -17,6 +27,9 @@ export class Overlay {
         this.createOverlay();
     }
 
+    /** 
+    * Creates the overlay div element and adds it to the document
+    */
     createOverlay() {
         const overlay = document.createElement('div');
         overlay.id = "gameOverlay";
@@ -37,27 +50,45 @@ export class Overlay {
         this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'C', 'Toggle Overlay');
     }
 
+    /** 
+    * Shows or hides the div overlay
+    * @param {boolean} on
+    */
     show(on = true) {
         this.overlay.style.display = on ? 'block' : 'none';
     }
 
+    /** 
+    * Toggles the game overlay
+    */
     toggle() {
         if (this.overlay.style.display === 'none') {
             this.overlay.style.display = 'block';
         } else {
             this.overlay.style.display = 'none';
         }
-        
     }
 
-    addInfoHeader(id, name) {
+    /** 
+    * Adds an <h2> element as an overlay child
+    * @param {string} id: element identifier
+    * @param {string} text: element text   
+    */
+    addInfoHeader(id, text) {
         const newRow = document.createElement('h2');
         newRow.className = this.rowClassName;
         newRow.id = id;
-        newRow.innerText = `${name}`;
+        newRow.innerText = `${text}`;
         this.overlay.appendChild(newRow);
     }
 
+    /** 
+    * Adds a <div> element as an overlay child which displays a name/value string pair
+    * e.g Lives: 10
+    * @param {string} id: element identifier
+    * @param {string} name
+    * @param {string} value: default empty   
+    */
     addInfoRow(id, name, value = '') {
         const newRow = document.createElement('div');
         newRow.className = this.rowClassName;
@@ -66,28 +97,34 @@ export class Overlay {
         this.overlay.appendChild(newRow);
     }
 
+    /** 
+    * Adds a separator element (<hr>) as an overlay child   
+    */
     addSeparator() {
         const separator = document.createElement('hr');
         this.overlay.appendChild(separator);
     }
 
+    /** 
+    * Updates the specified info row with new values
+    * @param {string} id: element identifier
+    * @param {string} name: new name
+    * @param {string} value: new value   
+    */
     updateInfoRow(id, name, value) {
         const infoRow = document.getElementById(id);
         infoRow.innerText = `${name}${value !== undefined ? ': ': ''}${value !== undefined ? value : ''}`;
     }
 
-    updateScoreInfo(score) {
-        this.updateInfoRow(OVERLAY_FIELDS.SCORE, 'Score', score);
-    }
-
-    updateLivesInfo(lives) {
-        this.updateInfoRow(OVERLAY_FIELDS.LIVES, 'Lives', lives);
-    }
-
+    /** 
+    * Updates the overlay with the game info
+    * This method is called for each rendering frame
+    * @param {Game} game: game instance   
+    */
     updateGameInfo(game) {
-        this.updateScoreInfo(game.score);
-        this.updateLivesInfo(game.lives);
-
+        this.updateInfoRow(OVERLAY_FIELDS.SCORE, 'Score', game.score);
+        this.updateInfoRow(OVERLAY_FIELDS.LIVES, 'Lives', game.lives);
+        
         const timePassed = performance.now() - game.startTime;
         if (timePassed > Constants.RHINO_CHASE_DELAY_TIME_MS) {
             this.updateInfoRow(OVERLAY_FIELDS.CHASE, 'Rhino is chasing!');    

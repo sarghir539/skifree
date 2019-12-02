@@ -1,20 +1,36 @@
 const SPLASH_DISPLAY_TIMEOUT_MS = 3000;
 
+/** 
+* Implements a small frame that displays various messages to the user
+*/
 export class Splash {
     
-    constructor(className, title) {
+    /** 
+    * @constructor
+    * @param {string} className: css class to apply to the splash
+    * @param {string} message: text to display in the splash element 
+    */
+    constructor(className, message) {
         this.className = className;
-        this.createSplash(title);
+        this.createSplash(message);
     }
 
-    createSplash(title) {
+    /** 
+    * Creates the splash div element and adds it to the document
+    * @param {string} message: text to display in the splash element
+    */
+    createSplash(message) {
         const splash = document.createElement('div');
         splash.id = "gameSplash";
         splash.className = this.className;
-        splash.innerText = title;
+        splash.innerText = message;
         this.splash = document.body.appendChild(splash);
     }
 
+    /** 
+    * Shows the splash and hides it after a timeout if specified
+    * @param {boolean} autoHide: optional parameter - if true splash will be hidden after a timeout
+    */
     show(autoHide = false) {
         this.splash.style.display = 'block';
         if (autoHide) {
@@ -22,12 +38,20 @@ export class Splash {
         }
     }
 
+    /** 
+    * Hides the splash
+    */
     hide() {
         this.splash.style.display = 'none';
     }
 
-    displayInfo(info, autoHide = false) {
-        this.splash.innerText = info;
+    /** 
+    * Displays a message into the splash
+    * @param {string} message: text to display
+    * @param {boolean} autoHide: optional parameter - if true splash will be hidden after a timeout
+    */
+    displayMessage(message, autoHide = false) {
+        this.splash.innerText = message;
         this.show(autoHide);
     }
 }

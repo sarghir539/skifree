@@ -1,8 +1,9 @@
+/** 
+* Class that implements asset management functionality: 
+* asyncronous asset loading and asset lookup 
+*/
 export class AssetManager {
     loadedAssets = [];
-
-    constructor() {
-    }
 
     async loadAssets(assets) {
         const assetPromises = [];

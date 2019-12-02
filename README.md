@@ -133,3 +133,8 @@ CHANGELOG
 ** 11/30/2019 **
 * Added a new trophy powerup to give extra scoring points when picked up
 * Powerups are now displayed using a new bouncy animation
+
+** 12/01/2019
+* Known issue: sometimes obstacles are displayed too close and will be counted as multiple hits which causes the lives counter to drop to 0 almost instantly
+* Known issue: skier and rhino speed decrease after the game is running for some time. This is unintended and needs a fix
+* Added many more comments to the code 
