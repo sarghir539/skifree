@@ -1,8 +1,12 @@
 import * as Constants from "../../Constants";
 
+import { AssetManager } from "../../Core/AssetManager";
 import { Entity } from "../Entity";
 import { randomInt } from '../../Core/Utils';
 
+/**
+ * Powerup types 
+ */
 const assetTypes = [
     Constants.POWERUP_PIZZA,
     Constants.POWERUP_COCOA,
@@ -10,12 +14,24 @@ const assetTypes = [
     Constants.POWERUP_TROPHY
 ];
 
+/**
+ * Bounce direction enum 
+ */
 const bounceDirection = {
     UP: 1,
     DOWN: -1
 }
 
+/**
+ * Implements an entity with a fixed position with a bouncing animation that can interact with the skier
+ * The interaction effect depends on the powerup type 
+ */
 export class Powerup extends Entity {
+    /**
+     * @constructor
+     * @param {number} x horizontal position
+     * @param {number} y vertical position
+     */
     constructor(x, y) {
         super(x, y);
 
@@ -25,6 +41,13 @@ export class Powerup extends Entity {
         this.bounceDirection = bounceDirection.UP;
     }
 
+    /**
+     * Draws an asset using a bouncing animation between current vertical position and a specified height
+     * @param {Canvas} canvas current drawing canvas
+     * @param {AssetManager} assetManager 
+     * @param {number} bounceHeight max bouncing height
+     * @param {number} zoom zoom factor - default 1
+     */
     // draw an image bouncing vertically between 0 and bounceHeight
     bounce(canvas, assetManager, bounceHeight, zoom = 1) {
         const asset = assetManager.getAsset(this.assetName);

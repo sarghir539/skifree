@@ -1,14 +1,14 @@
 /** 
-* Base class that implements the logic to render an array of assets in sequence
-* Extended classes will provide the specific asset list 
-*/
+ * Base class that implements the logic to render an array of assets in sequence
+ * Extended classes will provide the specific asset list 
+ */
 export class Animation {
     /**
-    * @constructor
-    * @param {Array} assets: array of assets to render
-    * @param {number} framesPerAsset: number of frames to render each asset
-    * @param {boolean} loop: flag to run the animation in a loop
-    */
+     * @constructor
+     * @param {Array} assets array of assets to render
+     * @param {number} framesPerAsset number of frames to render each asset
+     * @param {boolean} loop flag to run the animation in a loop
+     */
     constructor(assets, framesPerAsset, loop) {
         this.framesPerAsset = framesPerAsset;
         this.loop = loop;
@@ -19,25 +19,25 @@ export class Animation {
     }
 
     /**
-    * Returns true if animation is running, false otherwise
-    * @returns {boolean}
-    */
+     * Returns true if animation is running, false otherwise
+     * @returns {boolean}
+     */
     isRunning() {
         return this.animationRunning;
     }
 
     /**
-    * Returns the asset name corresponding to the current frame
-    * @returns {string}
-    */
+     * Returns the asset name corresponding to the current frame
+     * @returns {string}
+     */
     getAsset() {
         return this.assets[Math.floor(this.frameCounter/this.framesPerAsset)]
     }
 
     /**
-    * Updates animation frame counter
-    * Stops animation if the counter is equal to the max number of frames 
-    */
+     * Updates animation frame counter
+     * Stops animation if the counter is equal to the max number of frames 
+     */
     nextFrame() {
         if (this.frameCounter >= this.framesPerAsset * this.assets.length - 1) {
             this.stop();
@@ -47,16 +47,16 @@ export class Animation {
     }
 
     /**
-    * Starts animation by setting the frame counter to 0
-    */
+     * Starts animation by setting the frame counter to 0
+     */
     start() {
         this.frameCounter = 0;
         this.animationRunning = true;
     }
 
     /**
-    * Stops animation if loop is false or sets the frame counter to 0 if it's true
-    */
+     * Stops animation if loop is false or sets the frame counter to 0 if it's true
+     */
     stop() {
         if (this.loop) {
             this.frameCounter = 0;

@@ -8,10 +8,15 @@ const RHINO_RUN_ASSETS = [
 ];
 
 /**
- * Animation for the rhino running
+ * Animation that depicts the rhino running
+ * Uses assets rendered in a loop
  */
 export class RhinoRun extends Animation {
-    constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET / 2, loop = true) {
-        super(RHINO_RUN_ASSETS, speed, loop);
+    /**
+     * @constructor
+     * @param {number} speed animation speed as frames per asset
+     */
+    constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET / 2) {
+        super(RHINO_RUN_ASSETS, speed, true);
     }
 }

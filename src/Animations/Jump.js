@@ -11,9 +11,14 @@ const SKIER_JUMPING_ASSETS = [
 
 /**
  * Animation class for skier jumping
- * Renders 4 jump assets in a non-loop sequence using the default frame speed
+ * Renders assets in a non-loop sequence using the default frame speed
  */
 export class Jump extends Animation {
+    /**
+     * @constructor
+     * @param {number} speed animation speed as frames per asset
+     * @param {boolean} loop flag to set animation to a loop - default false
+     */
     constructor(speed = Constants.DEFAULT_FRAMES_PER_ASSET, loop = false) {
         super(SKIER_JUMPING_ASSETS, speed, loop);
     }

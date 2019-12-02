@@ -11,48 +11,43 @@ import { Skier } from "../Entities/Skier";
 import { Splash } from "./Splash";
 import { randomInt } from '../Core/Utils';
 
-const crashMessages = [
-    'Bump!',
-    'Ouch!',
-    'Again?',
-    'That hurt.',
-    'Eat more pizza!',
-    'Oops!',
-    'Whoops!'
-];
-                
 /** 
-* Class that implements the game logic
-* maintains the game loop
-* updates the game state (lives, score)
-* updates information displayed to user through the game overlay and the splash screen 
-* handles keyboard events and translates them into game actions 
-*/
+ * Class that implements the game logic
+ * maintains the game loop
+ * updates the game state (lives, score)
+ * updates information displayed to user through the game overlay and the splash screen 
+ * handles keyboard events and translates them into game actions 
+ */
 export class Game {
     gameWindow = null;
 
     /** 
-    * @constructor Game 
-    */
+     * @constructor Game 
+     */
     constructor() {
         this.assetManager = new AssetManager();
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.overlay = new Overlay('overlay', 'overlay-row');
         this.splash = new Splash('splash', Constants.SPLASH_MESSAGES.START_GAME); 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this.gameState = Constants.GAME_STATE.NOT_STARTED;
     }
 
     /** 
-    * Resets all game data to initial values 
-    */
+     * Resets all game data to initial values 
+     */
     init() {
+        // make sure this is not called mre than once before starting a new game
+        if (this.gameState === Constants.GAME_STATE.INITIALIZED) {
+            return;
+        }
         this.skier = new Skier(0, 0);
         this.rhino = null;
         this.score = 0;
         this.skierCaught = false;
         this.chaseStarted = false;
         this.lives = Constants.SKIER_STARTING_LIVES;
-        this.gameState = Constants.GAME_STATE.NOT_STARTED;
+        this.gameState = Constants.GAME_STATE.INITIALIZED;
         this.startTime = 0;
         
         this.obstacleManager = new ObstacleManager();
@@ -65,15 +60,15 @@ export class Game {
     }
 
     /** 
-    * Load all game assets 
-    */
+     * Load all game assets 
+     */
     async load() {
         await this.assetManager.loadAssets(Constants.ASSETS);
     }
 
     /** 
-    * THE game loop 
-    */
+     * THE game loop 
+     */
     run() {
         this.canvas.clearCanvas();
 
@@ -86,8 +81,8 @@ export class Game {
     }
 
     /** 
-    * Starts or restarts the game  
-    */
+     * Starts or restarts the game  
+     */
     start() {
         // reset game data
         this.init();
@@ -102,11 +97,11 @@ export class Game {
     }
 
     /** 
-    * Returns an existing Rhino entity or creates one if it doesn't exist
-    * Note: Rhino entity is not rendered until the chase starts so it 
-    * doesn't need to be created when game starts 
-    * @returns {Rhino}
-    */
+     * Returns an existing Rhino entity or creates one if it doesn't exist
+     * Note: Rhino entity is not rendered until the chase starts so it 
+     * doesn't need to be created when game starts 
+     * @returns {Rhino}
+     */
     getRhino() {
         if (!this.rhino) {
             this.rhino = new Rhino(this.skier.getPosition().x, this.skier.getPosition().y - 200);
@@ -115,26 +110,26 @@ export class Game {
     }
 
     /** 
-    * Returns true if the rhino chase started
-    * It is based on the difference between the current game time and the start game time
-    * @returns {boolean}    
-    */
+     * Returns true if the rhino chase started
+     * It is based on the difference between the current game time and the start game time
+     * @returns {boolean}    
+     */
     isChaseStarted() {
         const currentTime = performance.now();
         return currentTime - this.startTime > Constants.RHINO_CHASE_DELAY_TIME_MS;
     }
 
     /** 
-    * Utility function to update the score
-    * @param {number} addedScore  
-    */
+     * Updates the game score
+     * @param {number} addedScore  
+     */
     updateScore(addedScore) {
         this.score += addedScore;
     }
 
     /** 
-    * Updates the game state each frame  
-    */
+     * Updates the game state each frame  
+     */
     updateGameWindow() {
         if (this.gameState === Constants.GAME_STATE.RUNNING) {
             // move skier only if lives is greater than 0 and skier was not caught
@@ -160,9 +155,9 @@ export class Game {
         const previousGameWindow = this.gameWindow;
         this.calculateGameWindow();
 
-        // try to place a new obstacle (based on probability)
+        // try to place a new obstacle
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
-        // try to place a new powerup (based on probability)
+        // try to place a new powerup
         this.powerupManager.placeNewPowerup(this.gameWindow, previousGameWindow);
         
         // check for obstacle collision - unless skier has immunity to crashes
@@ -175,8 +170,8 @@ export class Game {
                 this.gameState = Constants.GAME_STATE.OVER;
                 this.splash.displayMessage(Constants.SPLASH_MESSAGES.GAME_OVER);
             } else { 
-                const index = randomInt(0, crashMessages.length - 1);
-                this.splash.displayMessage(crashMessages[index], true);
+                const index = randomInt(0, Constants.CRASH_MESSAGES.length - 1);
+                this.splash.displayMessage(Constants.CRASH_MESSAGES[index], true);
             }
         }
 
@@ -192,9 +187,9 @@ export class Game {
     }
 
     /** 
-    * Updates the game state when a powerup is hit
-    * @param {string} powerup
-    */
+     * Updates the game state when a powerup is hit
+     * @param {string} powerup
+     */
     handlePowerup(powerup) {
         switch (powerup) {
             case Constants.POWERUP_COCOA:
@@ -219,8 +214,8 @@ export class Game {
     }
 
     /** 
-    * Draws game entities on canvas for each frame
-    */
+     * Draws game entities on canvas for each frame
+     */
     drawGameWindow() {
         this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
 
@@ -235,8 +230,8 @@ export class Game {
     }
 
     /** 
-    * Calculates the game viewport based on skier current position
-    */
+     * Calculates the game viewport based on skier current position
+     */
     calculateGameWindow() {
         const skierPosition = this.skier.getPosition();
         const left = skierPosition.x - (Constants.GAME_WIDTH / 2);
@@ -246,8 +241,8 @@ export class Game {
     }
 
     /** 
-    * Pause/unpause the game 
-    */
+     * Pause/unpause the game 
+     */
     togglePause() {
         this.gameState = (this.gameState === Constants.GAME_STATE.PAUSED
             ? Constants.GAME_STATE.RUNNING
@@ -256,16 +251,16 @@ export class Game {
     }
 
     /** 
-    * Toggle the game info overlay on or off 
-    */
+     * Toggle the game info overlay on or off 
+     */
     toggleOverlay() {
         this.overlay.toggle();
     }
 
     /** 
-    * Handles keyboard events by translating them into game actions
-    * @param {KeyboardEvent} event
-    */
+     * Handles keyboard events by translating them into game actions
+     * @param {KeyboardEvent} event
+     */
     handleKeyDown(event) {
         switch(event.which) {
             case Constants.KEYS.LEFT:

@@ -102,16 +102,24 @@ export const KEYS = {
 
 export const GAME_STATE = {
     NOT_STARTED: 0,
-    RUNNING: 1,
-    PAUSED: 2,
-    OVER: 3
+    INITIALIZED: 1,
+    RUNNING: 2,
+    PAUSED: 3,
+    OVER: 4
 }
 
 export const SPLASH_MESSAGES = {
-    START_GAME: `Press 'S' to start`,
+    START_GAME: `Press 'S' to start...`,
     GAME_OVER: 'GAME OVER!',
-    EXTRA_LIFE: 'EXTRA LIFE!',
-    CRASH_IMMUNITY: 'CRASH_IMMUNITY!',
-    EXTRA_POINTS: 'EXTRA POINTS!'
-
+    EXTRA_LIFE: 'Extra Life!',
+    CRASH_IMMUNITY: 'Crash Immunity!',
+    EXTRA_POINTS: 'Extra Points!'
 }
+
+export const CRASH_MESSAGES = [
+    'Bump!',
+    'Ouch!',
+    'That hurt.',
+    'Oops!',
+    'Whoops!'
+];

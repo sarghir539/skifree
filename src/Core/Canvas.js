@@ -1,6 +1,6 @@
 /** 
-* Implements image drawing functionality using a 2d canvas element 
-*/
+ * Implements image drawing functionality using a 2d canvas element 
+ */
 export class Canvas {
     x = 0;
     y = 0;
@@ -12,6 +12,11 @@ export class Canvas {
     };
     ctx = null;
 
+    /**
+     * @constructor
+     * @param {number} width canvas width
+     * @param {number} height canvas height
+     */
     constructor(width, height) {
         this.width = width;
         this.height = height;
@@ -19,6 +24,9 @@ export class Canvas {
         this.createCanvas();
     }
 
+    /**
+     * Creates a canvas element and appends it to DOM
+     */
     createCanvas() {
         const canvas = document.createElement('canvas');
         canvas.id = "skiCanvas";
@@ -33,15 +41,31 @@ export class Canvas {
         document.body.appendChild(canvas);
     }
 
+    /**
+     * Clears canvas contents
+     */
     clearCanvas() {
         this.ctx.clearRect(this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Sets the draw offset
+     * @param {number} x horizontal position
+     * @param {number} y vertical position
+     */
     setDrawOffset(x, y) {
         this.drawOffset.x = x;
         this.drawOffset.y = y;
     }
 
+    /**
+     * Draws an image onto the canvas
+     * @param {object} image element to draw into the canvas context
+     * @param {number} x image horizontal position
+     * @param {number} y image vertical position
+     * @param {number} width image width
+     * @param {number} height image height
+     */
     drawImage(image, x, y, width, height) {
         x -= this.drawOffset.x;
         y -= this.drawOffset.y;

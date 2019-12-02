@@ -1,10 +1,13 @@
 import * as Constants from "../Constants";
 
-import { Rect, intersectTwoRects } from "../Core/Utils";
-
 import { Entity } from "./Entity";
 import { Jump } from "../Animations/Jump";
+import { intersectTwoRects } from "../Core/Utils";
 
+/**
+ * Implements logic for a moving entity that can be controlled by the user
+ * Can crash into obstacles, pick up powerups and use jumping animation 
+ */
 export class Skier extends Entity {
     assetName = Constants.SKIER_DOWN;
     direction = Constants.SKIER_DIRECTIONS.DOWN;
@@ -12,39 +15,69 @@ export class Skier extends Entity {
     immunity = false;
     collisionEntity = null;
     isJumping = false;
-    jumpAnimation = new Jump();
     
+    /**
+     * @constructor
+     * @param {number} x horizontal position
+     * @param {number} y vertical position
+     */
     constructor(x, y) {
         super(x, y);
+        this.jumpAnimation = new Jump();
+
     }
 
+    /**
+     * Sets the current skier direction and updates the asset correspondingly
+     * @param {number} direction new direction
+     */
     setDirection(direction) {
         this.direction = direction;
         this.updateAsset();
     }
 
+    /**
+     * Sets the skier speed
+     * @param {number} speed new speed value
+     */
     setSpeed(speed) {
         this.speed = speed;
     }
 
+    /**
+     * Makes the skier immune to obstacle crashing for a duration
+     * @param {number} duration immunity duration 
+     */
     setImmunity(duration) {
         this.immunity = true;
         setTimeout(() => { this.immunity = false; }, duration)
     }
 
+    /**
+     * Checks if the skier is immune to obstacle crashing
+     * @returns {boolean} 
+     */
     hasImmunity() {
         return this.immunity;
     }
     
+    /**
+     * Updates the skier asset based on the current direction
+     */
     updateAsset() {
         this.assetName = Constants.SKIER_DIRECTION_ASSET[this.direction];
     }
 
-    // update jumping asset based on the current asset from jump animation
+    /**
+     * Updates the skier asset based on the current jump animation frame
+     */
     updateJumpingAsset() {
         this.assetName = this.jumpAnimation.getAsset();
     }
 
+    /**
+     * Updates the skier position based on user actions
+     */
     move() {
         switch(this.direction) {
             case Constants.SKIER_DIRECTIONS.LEFT_DOWN:
@@ -70,34 +103,55 @@ export class Skier extends Entity {
         }
     }
 
+    /**
+     * Moves the skier to the left
+     */
     moveSkierLeft() {
         this.x -= this.speed;
     }
 
+    /**
+     * Moves the skier to the left and down
+     */
     moveSkierLeftDown() {
         this.x -= this.speed / Constants.SKIER_DIAGONAL_SPEED_REDUCER;
         this.y += this.speed / Constants.SKIER_DIAGONAL_SPEED_REDUCER;
     }
 
+    /**
+     * Moves the skier down
+     */
     moveSkierDown() {
         this.y += this.speed;
     }
 
+    /**
+     * Moves the skier to the right and down
+     */
     moveSkierRightDown() {
         this.x += this.speed / Constants.SKIER_DIAGONAL_SPEED_REDUCER;
         this.y += this.speed / Constants.SKIER_DIAGONAL_SPEED_REDUCER;
     }
 
+    /**
+     * Moves the skier to the right
+     */
     moveSkierRight() {
         this.x += this.speed;
     }
 
+    /**
+     * Moves the skier up
+     */
     moveSkierUp() {
         this.y -= this.speed;
     }
 
+    /**
+     * Turn skier to the left
+     */
     turnLeft() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
             this.moveSkierLeft();
         }
         else {
@@ -109,8 +163,11 @@ export class Skier extends Entity {
         }
     }
 
+    /**
+     * Turn skier to the right
+     */
     turnRight() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
             this.moveSkierRight();
         }
         else {
@@ -122,22 +179,35 @@ export class Skier extends Entity {
         }
     }
 
+    /**
+     * Turn skier up
+     */
     turnUp() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.LEFT || this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.LEFT || this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
             this.moveSkierUp();
         }
     }
 
+    /**
+     * Turn skier down
+     */
     turnDown() {
         this.setDirection(Constants.SKIER_DIRECTIONS.DOWN);
     }
 
-    // start jumping animation
+    /**
+     * Starts jumping animation
+     */
     jumpStart() {
         this.jumpAnimation.start();
         this.isJumping = true;
     }
 
+    /**
+     * Verifies if skier hit any obstacle
+     * @param {ObstacleManager} obstacleManager
+     * @param {AssetManager} assetManager
+     */
     checkIfSkierHitObstacle(obstacleManager, assetManager) {
         const skierBounds = this.getAssetBounds(assetManager);
         const collision = obstacleManager.getObstacles().find((obstacle) => this.getCollision(skierBounds, obstacle, assetManager));
@@ -156,7 +226,12 @@ export class Skier extends Entity {
         return false;
     };
 
-    // detect skier collision with any other game entity
+    /**
+     * Detect skier collision with another game entity
+     * @param {Rect} skierBounds current skier asset bounds 
+     * @param {Entity} entity entity to check for collision
+     * @param {AssetManager} assetManager
+     */
     getCollision(skierBounds, entity, assetManager) {
         const entityBounds = entity.getAssetBounds(assetManager);
             
@@ -173,6 +248,11 @@ export class Skier extends Entity {
         return false;
     }
 
+    /**
+     * Verifies if skier picked up any powerups
+     * @param {PowerupManager} powerupManager
+     * @param {AssetManager} assetManager
+     */
     checkIfSkierHitPowerup(powerupManager, assetManager) {
         const skierBounds = this.getAssetBounds(assetManager);
         const hitPowerup = powerupManager.getPowerups().find((powerup) => {
@@ -187,7 +267,11 @@ export class Skier extends Entity {
         return null;
     };
 
-    // overwrite draw method to zoom skier if it has immunity
+    /**
+     * Overrides draw method to render a double size skier if it has immunity 
+     * @param {Canvas} canvas current canvas
+     * @param {AssetManager} assetManager
+     */
     draw(canvas, assetManager) {
         super.draw(canvas, assetManager, this.hasImmunity() ? 2 : 1);
     }

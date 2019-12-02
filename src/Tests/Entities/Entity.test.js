@@ -41,7 +41,7 @@ describe('Entity tests', () => {
 
     test('getIdentifier', () => {
         entity.assetName = 'test'; 
-        expect(entity.getIdentifier()).toEqual('test.100.100');
+        expect(entity.getIdentifier()).toEqual('test_100_100');
     });
 
     test('draw image', () => {
