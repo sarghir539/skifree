@@ -134,7 +134,16 @@ CHANGELOG
 * Added a new trophy powerup to give extra scoring points when picked up
 * Powerups are now displayed using a new bouncy animation
 
-** 12/01/2019
+** 12/01/2019 **
 * Known issue: sometimes obstacles are displayed too close and will be counted as multiple hits which causes the lives counter to drop to 0 almost instantly
-* Known issue: skier and rhino speed decrease after the game is running for some time. This is unintended and needs a fix
-* Added many more comments to the code 
+* Known issue: skier and rhino speed decrease after the game is running for some time. This is unintended.
+* Added some extra comments to the code
+* Displayed extra information in the game overlay: shield immunity status and the collected trophy count
+
+** 12/02/2019 **
+* Added JSDoc style comments to all classes and functions
+* Added many extra unit tests
+* Fixed various issues affecting functionality:
+  * overflowing app content is now hidden (no scrollbars anywhere)
+  * increased the minimum distance between obstacles to make sure they are not too close together
+* Removed unused code and cleaned some functions to make them more readable
