@@ -49,11 +49,11 @@ export class Overlay {
         this.addInfoRow(OVERLAY_FIELDS.CHASE, 'Chase starts', `${Constants.RHINO_CHASE_DELAY_TIME_MS / 1000} sec`);
         this.addSeparator();
         this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Key Mapping');
-        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'ARROW KEYS', 'Move');
-        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'SPACE', 'Jump');
-        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'S', 'Start Game');
-        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'P', 'Pause Game');
-        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'C', 'Toggle Overlay');
+        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Move', 'ARROW KEYS');
+        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Jump', 'SPACE');
+        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Start Game', 'S');
+        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Pause Game', 'P');
+        this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'Toggle Overlay', 'C');
         this.addSeparator();
         this.addInfoRow(OVERLAY_FIELDS.POWERUPS, 'Powerups');
         this.addInfoRow(OVERLAY_FIELDS.POWERUP_SHIELD, 'Shield', 'OFF');
