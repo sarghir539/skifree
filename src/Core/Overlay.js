@@ -97,9 +97,9 @@ export class Overlay {
      * e.g Lives: 10
      * @param {string} id element identifier
      * @param {string} name
-     * @param {string} value default empty   
+     * @param {string} value default undefined   
      */
-    addInfoRow(id, name, value = '') {
+    addInfoRow(id, name, value = undefined) {
         const newRow = document.createElement('div');
         newRow.className = this.rowClassName;
         newRow.id = id;
