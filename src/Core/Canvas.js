@@ -1,5 +1,5 @@
 /** 
- * Implements image drawing functionality using a 2d canvas element 
+ * Implements drawing functionality using a 2d canvas element 
  */
 export class Canvas {
     x = 0;

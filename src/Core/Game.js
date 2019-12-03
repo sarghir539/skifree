@@ -13,10 +13,10 @@ import { randomInt } from '../Core/Utils';
 
 /** 
  * Class that implements the game logic
- * maintains the game loop
- * updates the game state (lives, score)
- * updates information displayed to user through the game overlay and the splash screen 
- * handles keyboard events and translates them into game actions 
+ *  - maintains the game loop
+ *  - updates the game state (lives, score)
+ *  - updates information displayed to user through the game overlay and the splash screen 
+ *  - handles keyboard events and translates them into game actions 
  */
 export class Game {
     gameWindow = null;

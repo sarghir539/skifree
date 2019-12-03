@@ -15,7 +15,6 @@ export class Animation {
         this.frameCounter = 0;
         this.animationRunning = false;
         this.assets = assets;
-        this.maxFrames = framesPerAsset * assets.length;
     }
 
     /**

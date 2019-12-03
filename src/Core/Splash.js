@@ -1,7 +1,7 @@
 const SPLASH_DISPLAY_TIMEOUT_MS = 2000;
 
 /** 
- * Implements a small frame that displays various messages to the user
+ * Implements a frame that displays various messages to the user
  */
 export class Splash {
     

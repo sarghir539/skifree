@@ -1,8 +1,7 @@
 import * as Constants from "../Constants";
 
 /**
- * Loads an array of assets asynchronously
- * @param {Array} assets array of assets to load
+ * Overlay field types
  */
 const OVERLAY_FIELDS = {
     TITLE: 0,

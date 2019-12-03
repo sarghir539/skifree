@@ -8,7 +8,6 @@ describe('Animation tests', () => {
     test('constructor', () => {
         const animation = new Animation(assets, 10, false);
         expect(animation.frameCounter).toEqual(0);
-        expect(animation.maxFrames).toEqual(40);
         expect(animation.framesPerAsset).toEqual(10);
         expect(animation.loop).toEqual(false);
         expect(animation.animationRunning).toEqual(false);
@@ -45,7 +44,7 @@ describe('Animation tests', () => {
         const animation = new Animation(assets, 10, false);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
-        for (let i = 0; i <= animation.maxFrames; i++) {
+        for (let i = 0; i <= animation.framesPerAsset * animation.assets.length; i++) {
             animation.nextFrame();
         }
         expect(animation.frameCounter).toEqual(39);
@@ -56,7 +55,7 @@ describe('Animation tests', () => {
         const animation = new Animation(assets, 10, true);
         animation.start();
         expect(animation.frameCounter).toEqual(0);
-        for (let i = 0; i < animation.maxFrames; i++) {
+        for (let i = 0; i < animation.framesPerAsset * animation.assets.length; i++) {
             animation.nextFrame();
         }
         expect(animation.frameCounter).toEqual(0);
