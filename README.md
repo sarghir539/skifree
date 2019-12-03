@@ -97,7 +97,7 @@ We are looking forward to see what you come up with!
 
 CHANGELOG
 
-** 11/27/2019 **
+**11/27/2019**
 * Bug fix: Fixed an issue in Skier.turnLeft() method where direction became invalid (-1) after a skier crashed and was moved to the left
 * Bug fix: Fixed an issue in Skier.turnRight() to properly handle direction change after skier crashed and was moved to the right
 * Added unit tests for Skier
@@ -113,7 +113,7 @@ CHANGELOG
 * Bug fix: added a counter property to ObstacleManager.calculateOpenPosition() to avoid infinite loops
 
 
-** 11/28/2019 **
+**11/28/2019**
 * Added pause functionality toggled by pressing the 'P' key
 * Added game Overlay to display basic game info
 * Added score to the game (based on distance)
@@ -122,7 +122,7 @@ CHANGELOG
 * Rhino is now twice as big (and twice as scary!)
 * Added Animation unit tests
 
-** 11/29/2019 **
+**11/29/2019**
 * Added Powerup entities and a PowerupManager to the game
 * Ramp is now twice as big to allow for easier jumps
 * Added functionality to toggle the game overlay on and off by pressing the 'C' key
@@ -130,20 +130,27 @@ CHANGELOG
 * Rhino is now rendered on screen right behind the skier when the chase starts  
 * Added Splash class to display dynamic game information (powerup, game over, etc)
 
-** 11/30/2019 **
+**11/30/2019**
 * Added a new trophy powerup to give extra scoring points when picked up
 * Powerups are now displayed using a new bouncy animation
 
-** 12/01/2019 **
+**12/01/2019**
 * Known issue: sometimes obstacles are displayed too close and will be counted as multiple hits which causes the lives counter to drop to 0 almost instantly
 * Known issue: skier and rhino speed decrease after the game is running for some time. This is unintended.
 * Added some extra comments to the code
 * Displayed extra information in the game overlay: shield immunity status and the collected trophy count
 
-** 12/02/2019 **
+**12/02/2019**
 * Added JSDoc style comments to all classes and functions
 * Added many extra unit tests
 * Fixed various issues affecting functionality:
   * overflowing app content is now hidden (no scrollbars anywhere)
   * increased the minimum distance between obstacles to make sure they are not too close together
 * Removed unused code and cleaned some functions to make them more readable
+
+**Still to do**
+* Add unit tests for all components
+* Add a code coverage package and make sure the app has 100% unit test coverage
+* Add eslint to the app and make sure all code is following the styling rules
+* Add difficulty/levels to the game to increase skier speed, obstacle frequency, rhino speed etc
+* Add game sounds
