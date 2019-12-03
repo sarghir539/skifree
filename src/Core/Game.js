@@ -47,6 +47,7 @@ export class Game {
         this.skierCaught = false;
         this.chaseStarted = false;
         this.lives = Constants.SKIER_STARTING_LIVES;
+        this.trophyCount = 0;
         this.gameState = Constants.GAME_STATE.INITIALIZED;
         this.startTime = performance.now();
         
@@ -75,6 +76,7 @@ export class Game {
         this.updateGameWindow();
         this.drawGameWindow();
 
+        // call requestAnimationFrame only if game is running 
         if (this.gameState === Constants.GAME_STATE.RUNNING) {
             this.requestAnimationId = requestAnimationFrame(this.run.bind(this));
         }
@@ -207,6 +209,7 @@ export class Game {
             case Constants.POWERUP_TROPHY:
                 // give extra score
                 this.updateScore(Constants.POWERUP_TROPHY_POINTS);
+                this.trophyCount++;
                 this.splash.displayMessage(Constants.SPLASH_MESSAGES.EXTRA_POINTS, true);
                 break;            
         }

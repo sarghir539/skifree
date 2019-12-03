@@ -9,7 +9,10 @@ const OVERLAY_FIELDS = {
     SCORE: 1,
     LIVES: 2,
     CHASE: 3,
-    KEYMAPPING: 4
+    KEYMAPPING: 4,
+    POWERUPS: 5,
+    POWERUP_SHIELD: 6,
+    POWERUP_TROPHY: 7
 };
 
 //TODO: move all strings displayed in the overlay into a separate structure
@@ -52,6 +55,10 @@ export class Overlay {
         this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'S', 'Start Game');
         this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'P', 'Pause Game');
         this.addInfoRow(OVERLAY_FIELDS.KEYMAPPING, 'C', 'Toggle Overlay');
+        this.addSeparator();
+        this.addInfoRow(OVERLAY_FIELDS.POWERUPS, 'Powerups');
+        this.addInfoRow(OVERLAY_FIELDS.POWERUP_SHIELD, 'Shield', 'OFF');
+        this.addInfoRow(OVERLAY_FIELDS.POWERUP_TROPHY, 'Trophies', 0);
     }
 
     /** 
@@ -136,5 +143,9 @@ export class Overlay {
             this.updateInfoRow(OVERLAY_FIELDS.CHASE, 'Chase starts in', 
             `${Math.ceil((Constants.RHINO_CHASE_DELAY_TIME_MS - timePassed) / 1000)} sec`);
         }
+
+        this.updateInfoRow(OVERLAY_FIELDS.POWERUP_SHIELD, 'Shield', game.skier.hasImmunity() ? 'ON' : 'OFF');
+        this.updateInfoRow(OVERLAY_FIELDS.POWERUP_TROPHY, 'Trophies', game.trophyCount);
+        
     }
 }
